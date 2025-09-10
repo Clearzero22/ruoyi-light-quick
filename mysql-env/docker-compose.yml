@@ -1,0 +1,22 @@
+
+services:
+
+  # MySQL 8.0
+  mysql:
+    image: mysql:8.0
+    container_name: dev-mysql-8.0-ruoyi-vue3
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: ruoyi-vue3-data
+      MYSQL_USER: devuser
+      MYSQL_PASSWORD: 123456
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./mysql-init:/docker-entrypoint-initdb.d  # 👈 挂载初始化目录
+
+    restart: unless-stopped
+
+volumes:
+  mysql_data:

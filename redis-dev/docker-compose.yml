@@ -1,0 +1,16 @@
+services:
+  redis:
+    image: redis:7-alpine
+    container_name: dev-redis-7-ruoyi-vue3
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data                # 持久化数据（RDB/AOF）
+      - ./redis.conf:/usr/local/etc/redis/redis.conf:ro  # 自定义配置（可选）
+    command: ["redis-server", "/usr/local/etc/redis/redis.conf"]  # 使用自定义配置启动
+    environment:
+      - REDIS_PASSWORD=123456  # 设置密码（可选）
+    restart: unless-stopped
+
+volumes:
+  redis_data:
